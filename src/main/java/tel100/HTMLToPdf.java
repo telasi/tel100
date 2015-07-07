@@ -9,6 +9,8 @@ import java.io.Reader;
 import java.io.StringReader;
 
 import org.apache.commons.io.IOUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -137,6 +139,8 @@ public class HTMLToPdf {
   private static Reader readHtml(String src) throws IOException {
     InputStream in = new FileInputStream(src);
     String html = IOUtils.toString(in);
+    // clear html
+    html = Jsoup.clean(html, Whitelist.relaxed());
     // fixing <br> tags
     html = html.replaceAll("<br>", "<br/>");
     // removing <font> tags
