@@ -86,7 +86,7 @@ public class HTMLToPdf {
       font.setSize(10);
       fontBold.setSize(10);
 
-      boolean isKa = locale == "ka";
+      boolean isKa = "ka".equals(locale);
 
       Paragraph p1 = new Paragraph();
       p1.add(new Chunk(isKa ? "ნომერი: " : "Номер: ", fontBold));
