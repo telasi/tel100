@@ -140,7 +140,9 @@ public class HTMLToPdf {
     InputStream in = new FileInputStream(src);
     String html = IOUtils.toString(in);
     // clear html
-    html = Jsoup.clean(html, Whitelist.relaxed());
+    Whitelist wl = Whitelist.relaxed();
+    wl.addAttributes(":all", "style");
+    html = Jsoup.clean(html, wl);
     // fixing <br> tags
     html = html.replaceAll("<br>", "<br/>");
     // removing <font> tags
