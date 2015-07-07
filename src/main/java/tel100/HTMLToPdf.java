@@ -143,7 +143,7 @@ public class HTMLToPdf {
     html = html.replaceAll("<font [^>]*>", "");
     html = html.replaceAll("</font>", "");
     // removing font-family tags
-    html = html.replaceAll("font-family: [^;]+;", "");
+    html = html.replaceAll("font-family:[^;]+;", "");
     return new BufferedReader(new StringReader(html));
   }
 }
