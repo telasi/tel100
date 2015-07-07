@@ -30,11 +30,14 @@ import com.itextpdf.tool.xml.pipeline.html.HtmlPipelineContext;
 public class HTMLToPdf {
   static final String CSS = "css/tel100.css";
   static final float INCHES_TO_POINTS = 72;
-  public static final String HTML = "/home/dimitri/Desktop/test.html";
-  public static final String DEST = "/home/dimitri/Desktop/test.pdf";
 
   public static void main(String[] args) throws Exception {
-    convert(HTML, DEST, new float[] { 0.5f, 0.5f, 0.5f, 0.5f });
+    if (args.length != 6)
+      throw new IllegalArgumentException("usage: java tel100.HtmlToPdf <src> <dest> <marginTop> <marginRight> <marginBottom> <marginLeft>");
+    String src = args[0];
+    String dest = args[1];
+    float[] margins = { Float.parseFloat(args[2]), Float.parseFloat(args[3]), Float.parseFloat(args[4]), Float.parseFloat(args[5]) };
+    convert(src, dest, margins);
   }
 
   public static void convert(String src, String dest, float[] margins) throws Exception {
@@ -44,7 +47,7 @@ public class HTMLToPdf {
     float marginBottom = margins[2] * INCHES_TO_POINTS;
     float marginLeft = margins[3] * INCHES_TO_POINTS;
     document.setMargins(marginLeft, marginRight, marginTop, marginBottom);
-    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(DEST));
+    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(dest));
     document.open();
     // CSS, Fonts & HTML
     CSSResolver cssResolver = new StyleAttrCSSResolver();
